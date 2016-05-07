@@ -10,10 +10,12 @@ var outer = function(){
 // Invoke outer saving the return value into another variable called 'inner'.
 
   //Code Here
+  var inner = outer();
 
 //Once you do that, invoke inner.
 
   //Code Here
+  inner();
 
 
 
@@ -33,7 +35,8 @@ var callFriend = function(){
 //Do what you need to do in order to call your function and get 'Calling Jake at 435-215-9248' in your console.
 
   //Code Here
-
+var newCall = callFriend();
+newCall('435-215-9248');
 
 
 //////////////////PROBLEM 3////////////////////
@@ -43,6 +46,13 @@ var callFriend = function(){
 /*
   Write a function called makeCounter that makes the following code work properly.
 */  //Code Here
+
+function makeCounter() {
+  var counter = 0;
+  return function() {
+    return counter += 1;
+  }
+}
   
   
 //Uncomment this once you make your function
@@ -64,7 +74,17 @@ var callFriend = function(){
 // You will need to use the module pattern to achieve this.
 
 function counterFactory(value) {
-  return {}
+
+  return {
+    inc: function() {
+      ++value;
+      return value;
+    },
+    dec: function() {
+      --value;
+      return value;
+    }
+  }
 
     // Code inc function
     // Code dec function
@@ -73,6 +93,9 @@ function counterFactory(value) {
 
 
 counter = counterFactory(10);
+
+counter.inc();
+counter.dec();
 
 
 
@@ -84,16 +107,19 @@ counter = counterFactory(10);
 
   function motivation(firstname, lastname){
 
-    var welcomeText = 'Your doing awesome keep it up    ';
+    var welcomeText = 'You are doing awesome keep it up ';
 
     // code message function here
+    function message() {
+      return welcomeText + firstname + " " + lastname;
+    }
 
 
     //Uncommment this to return the value of your invoked message function
-    // return message()
+    return message()
   }
 
-  motivation('Billy', 'Bob'); // 'Your doing awesome keep it up Billy Bob
+  motivation('Billy', 'Bob'); // 'You are doing awesome keep it up Billy Bob
 
 
 
@@ -101,26 +127,28 @@ counter = counterFactory(10);
 // Inside the return create a publicMethod property that is a function that invokes privateMethod. After you create the privateMethod
 // Invoke it by calling module.publicMethod(); outside the module scope
 
-  var module = (function() {
-    var person = {
-      name: "phillip",
-      age: 29,
-      location: 'Utah'
-    };
+//   var module = (function() {
+//     var person = {
+//       name: "phillip",
+//       age: 29,
+//       location: 'Utah'
+//     };
 
-    var privateMethod = function(){
-      return welcomeText + firstname + '  ' + lastname;
-    };
+//     var privateMethod = function(){
+//       return welcomeText + firstname + '  ' + lastname;
+//     };
 
-    // Anything that is being returned is made public and can be invoked from outside our lexical scope
+//     // Anything that is being returned is made public and can be invoked from outside our lexical scope
 
-    return {
-      // Code here
-    };
+//     return {
+//       publicMethod: function() {
+//         privateMethod();
+//       }
+//     };
 
-  })();
+//   })();
 
-//Uncomment this after you create your public method
+// //Uncomment this after you create your public method
 //   module.publicMethod();
 
 
@@ -129,13 +157,13 @@ counter = counterFactory(10);
 // Here we have a for loop that will iterate as long as i is less than or equal to 5. What we need to do is console.log(i)
 // So that it logs ( 1 then 2 then 3, etc). Run this code in your console to see what the output is.
 
-
+var counter = function() {
   for (var i = 0; i <= 5; i++) {
-    setTimeout(function() {
-      console.log(i)
-    }, i * 1000)
+    setTimeout(function timer(num) {
+      console.log(num)
+    }, i * 1000, i);
   }
-
+}
 
   // To make this code work you will need to create a new scope for every iteration.
 
@@ -160,4 +188,32 @@ counter = counterFactory(10);
   *Hint: Don't let this fool you. Break down what's really happening here.
 */
 
+  var funcArray = [
 
+  function() {
+    return 0;
+   },
+  function() {
+    return 1;
+    }, 
+  function() {
+    return 2;
+    },
+  function() {
+    return 3;
+    },
+  function() {
+    return 4;
+    },
+  function() {
+    return 5;
+    },
+    
+  ];
+
+  funcArray[0]();
+  funcArray[1]();
+  funcArray[2]();
+  funcArray[3]();
+  funcArray[4]();
+  funcArray[5]();
